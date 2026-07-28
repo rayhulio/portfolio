@@ -52,9 +52,9 @@ export default function SaltAndStrawPage() {
         <Body maxWidth={1120}>User Research and Branding for creating an Upcycled Menu</Body>
       </div>
 
-      {/* Thin cropped floral band with natural top */}
+      {/* Thin cropped floral band with natural top (bottom cut a bit higher) */}
       <div style={{ marginTop: px(20) }}>
-        <FloralBand height={1050} objectPosition="center 30%" />
+        <FloralBand height={880} objectPosition="center 26%" />
       </div>
 
       {/* Intro */}
