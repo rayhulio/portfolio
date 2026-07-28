@@ -38,6 +38,16 @@ const PROJECTS: (Project & { href: string })[] = [
   },
   {
     number: "05",
+    title: "CNTNDR",
+    year: "[2026]",
+    client: "CNTNDR",
+    thumbnail: "/images/cntndr/logo.png",
+    thumbnailType: "sharp",
+    iconThumb: true,
+    href: "/cntndr",
+  },
+  {
+    number: "06",
     title: "SELF DRIVING",
     year: "[2026]",
     client: "Major Automative OEM",
