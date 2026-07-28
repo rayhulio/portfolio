@@ -52,7 +52,7 @@ export default function Home() {
   const carouselPadLeft = `max(${px(34)}, calc((100vw - ${px(FRAME_W)}) / 2 + ${px(34)}))`;
 
   return (
-    <div id="top" className="relative overflow-x-hidden" style={{ minHeight: px(FRAME_H) }}>
+    <div id="top" className="relative overflow-x-clip" style={{ minHeight: px(FRAME_H) }}>
       <GlassFilters />
       <Background />
       <Nav />
