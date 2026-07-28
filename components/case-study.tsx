@@ -88,6 +88,21 @@ export function IconFigure({
   );
 }
 
+/** Two red accent bars that bleed off a viewport edge (Figma #ff021b). */
+export function EdgeBars({ side }: { side: "left" | "right" }) {
+  return (
+    <div className="pointer-events-none relative left-1/2 h-0 w-screen -translate-x-1/2">
+      <div
+        className="absolute flex flex-col"
+        style={{ [side]: 0, top: 0, gap: px(90) } as React.CSSProperties}
+      >
+        <span className="bg-red" style={{ width: px(240), height: px(90) }} />
+        <span className="bg-red" style={{ width: px(240), height: px(90) }} />
+      </div>
+    </div>
+  );
+}
+
 /** A numbered recommendation: red circle + bold title + body, left-aligned. */
 export function NumberedStep({
   n,

@@ -28,6 +28,16 @@ const PROJECTS: (Project & { href: string })[] = [
   },
   {
     number: "04",
+    title: "SALT & STRAW",
+    year: "[2026]",
+    client: "Salt & Straw",
+    thumbnail: "/images/salt-and-straw/salt-and-straw-logo.png",
+    thumbnailType: "sharp",
+    iconThumb: true,
+    href: "/salt-and-straw",
+  },
+  {
+    number: "05",
     title: "SELF DRIVING",
     year: "[2026]",
     client: "Major Automative OEM",
