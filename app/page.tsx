@@ -1,9 +1,9 @@
-import Link from "next/link";
 import Background from "@/components/Background";
 import GlassFilters from "@/components/GlassFilters";
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
-import ProjectCard, { type Project } from "@/components/ProjectCard";
+import { type Project } from "@/components/ProjectCard";
+import WorkCarousel from "@/components/WorkCarousel";
 import { px, FRAME_W, FRAME_H } from "@/app/design";
 
 const PROJECTS: (Project & { href: string })[] = [
@@ -42,7 +42,7 @@ const PROJECTS: (Project & { href: string })[] = [
     year: "[2026]",
     client: "Major Automative OEM",
     thumbnailType: "blur",
-    href: "/projects",
+    href: "/self-driving",
   },
 ];
 
@@ -62,29 +62,8 @@ export default function Home() {
         <Hero />
       </div>
 
-      {/* Work carousel — full viewport width, left edge aligned to the frame,
-          scrolls horizontally and bleeds off the true right edge of the page. */}
-      <div
-        id="work"
-        className="no-scrollbar absolute left-0 flex w-screen snap-x snap-mandatory overflow-x-auto scroll-smooth"
-        style={{
-          top: px(1371),
-          gap: px(85),
-          paddingLeft: carouselPadLeft,
-          paddingRight: px(120),
-        }}
-      >
-        {PROJECTS.map((p) => (
-          <Link
-            key={p.number}
-            href={p.href}
-            className="flex-none snap-start transition-transform hover:-translate-y-1"
-            style={{ width: px(914.892), height: px(870) }}
-          >
-            <ProjectCard project={p} />
-          </Link>
-        ))}
-      </div>
+      {/* Work carousel + fixed frosted progress control */}
+      <WorkCarousel projects={PROJECTS} padLeft={carouselPadLeft} />
     </div>
   );
 }
