@@ -62,7 +62,7 @@
   --u: clamp(0.3px, calc(100vw / 2176), 0.62px);
   /* Nav unit: identical to --u but NEVER overridden per page (the home page
      re-scales --u by viewport height), so the nav is the same size everywhere. */
-  --un: clamp(0.3px, calc(100vw / 2176), 0.62px);
+  --un: clamp(0.255px, calc(100vw / 2176 * 0.85), 0.527px); /* 0.85 × --u: the nav is 15% smaller */
 
   /* Case-study type scale — Figma px × --u, minus 2px (case-study text is
      deliberately 2px smaller than the base scale at every viewport). */

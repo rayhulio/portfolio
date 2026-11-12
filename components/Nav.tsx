@@ -59,15 +59,15 @@ export default function Nav() {
         </div>
       </nav>
 
-      {/* Tablet / desktop: bar spans 90% of the viewport — logo at its left edge,
+      {/* Tablet / desktop: bar spans 95% of the viewport — logo at its left edge,
           pills at its right edge. Pill size and spacing scale with --u only
           (they never spread out on wider screens). */}
       <nav
         aria-label="Primary"
         className="mx-auto hidden items-start justify-between md:flex"
-        style={{ width: "90vw", height: px(240) }}
+        style={{ width: "95vw", height: px(210) }}
       >
-        <Link href="/" aria-label="Home" className="pointer-events-auto" style={{ marginTop: px(76) }}>
+        <Link href="/" aria-label="Home" className="pointer-events-auto" style={{ marginTop: px(50) }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/smiley-logo.png"
@@ -76,7 +76,7 @@ export default function Nav() {
           />
         </Link>
 
-        <div className="flex items-start" style={{ marginTop: px(92), gap: px(54.2) }}>
+        <div className="flex items-start" style={{ marginTop: px(87), gap: px(54.2) }}>
           {LINKS.map(({ label, href, width }) => (
             <Link
               key={label}

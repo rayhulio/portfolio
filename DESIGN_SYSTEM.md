@@ -140,7 +140,7 @@ floral band.
 
 | Component | File | Notes |
 |---|---|---|
-| Nav | `components/Nav.tsx`, `.nav-pill` (sized with `--un`, never overridden per page → identical on every page) | order Work · Play · About · Resumé; ≥ md: bar spans 90vw, logo at the left edge, four pills grouped at the right edge with fixed Figma-px gaps (never spread out on wider screens); < md single row of 44px pills; `aria-current="page"` = active |
+| Nav | `components/Nav.tsx`, `.nav-pill` (sized with `--un`, never overridden per page → identical on every page) | order Work · Play · About · Resumé; ≥ md: bar spans 95vw (nav scale = 0.85 × the base unit; logo and pills vertically centered on one line), logo at the left edge, four pills grouped at the right edge with fixed Figma-px gaps (never spread out on wider screens); < md single row of 44px pills; `aria-current="page"` = active |
 | Hero | `components/Hero.tsx` | glass panel + CD disc + wordmark; `HeroMobile` scales panel to viewport |
 | Project card | `components/ProjectCard.tsx` | radius `--radius-card`, shadow `--shadow-ui`, mat strips, taupe/red accents, glass thumbnail window, dark label bar |
 | Carousel + controls | `components/WorkCarousel.tsx` | `.glass-control` arrows/track, radius `--radius-control`; scrolls exactly one card |
