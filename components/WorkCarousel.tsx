@@ -3,22 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import ProjectCard, { type Project } from "@/components/ProjectCard";
-import { px, S } from "@/app/design";
+import { px } from "@/app/design";
 
-const GAP = 85; // Figma px between cards
-const CARD_W = 914.892;
-const CARD_H = 870;
-const CAROUSEL_TOP = 1371;
 
 type P = Project & { href: string };
 
-export default function WorkCarousel({
-  projects,
-  padLeft,
-}: {
-  projects: P[];
-  padLeft: string;
-}) {
+/** Project card row + frosted progress control.
+ *  ≥ md: absolutely placed in the composition. < md: normal flow, cards ~78vw. */
+export default function WorkCarousel({ projects }: { projects: P[] }) {
   const ref = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
 
@@ -38,9 +30,14 @@ export default function WorkCarousel({
     };
   }, []);
 
-  const step = () => (CARD_W + GAP) * S;
-  const nudge = (dir: 1 | -1) =>
-    ref.current?.scrollBy({ left: dir * step(), behavior: "smooth" });
+  // Scroll by exactly one card (measured, so it's correct at every breakpoint).
+  const nudge = (dir: 1 | -1) => {
+    const el = ref.current;
+    const card = el?.firstElementChild as HTMLElement | null;
+    if (!el || !card) return;
+    const gap = parseFloat(getComputedStyle(el).columnGap) || 0;
+    el.scrollBy({ left: dir * (card.offsetWidth + gap), behavior: "smooth" });
+  };
 
   return (
     <>
@@ -48,32 +45,31 @@ export default function WorkCarousel({
       <div
         ref={ref}
         id="work"
-        className="no-scrollbar absolute left-0 flex w-screen snap-x snap-mandatory overflow-x-auto scroll-smooth"
-        style={{ top: px(CAROUSEL_TOP), gap: px(GAP), paddingLeft: padLeft, paddingRight: px(120) }}
+        className="no-scrollbar relative flex w-full scroll-mt-8 snap-x snap-mandatory overflow-x-auto scroll-smooth pb-2 md:absolute md:left-0 md:top-[var(--car-top)] md:w-screen md:pb-0"
+        style={{
+          gap: `min(5vw, ${px(85)})`,
+          paddingLeft: "var(--carousel-pad-left)",
+          paddingRight: "var(--gutter)",
+        }}
       >
         {projects.map((p) => (
           <Link
             key={p.number}
             href={p.href}
-            className="flex-none snap-start transition-transform hover:-translate-y-1"
-            style={{ width: px(CARD_W), height: px(CARD_H) }}
+            className="aspect-[914.892/870] w-[78vw] max-w-[26rem] flex-none snap-start transition-transform duration-[var(--duration-base)] hover:-translate-y-1 md:w-[var(--card-w)] md:max-w-none"
           >
             <ProjectCard project={p} />
           </Link>
         ))}
       </div>
 
-      {/* Frosted-glass progress control — sits in the composition just below the
-          card row rather than pinned to the viewport. */}
+      {/* Frosted-glass progress control */}
       <div
-        className="absolute left-1/2 z-30 flex -translate-x-1/2 items-center"
-        style={{ top: px(CAROUSEL_TOP + CARD_H + 90), gap: px(70) }}
+        className="relative z-30 mx-auto mt-6 flex items-center justify-center gap-3 px-[var(--gutter)] md:absolute md:left-1/2 md:top-[var(--ctl-top)] md:mt-0 md:-translate-x-1/2 md:gap-[var(--ctl-gap)] md:px-0"
       >
         <ArrowButton dir="left" onClick={() => nudge(-1)} />
-        {/* Progress track + fill (frosted white; picks up the floral behind) */}
         <div
-          className="overflow-hidden rounded-full border border-white/70 bg-white/35 shadow-[0_4px_12px_rgba(0,0,0,0.15)] backdrop-blur-md"
-          style={{ width: px(1220), height: px(100) }}
+          className="glass-control h-11 min-w-0 flex-1 overflow-hidden rounded-full md:h-[var(--track-h)] md:w-[var(--track-w)] md:flex-none"
         >
           <div
             className="h-full rounded-full bg-white/50 transition-[width] duration-150 ease-out"
@@ -92,14 +88,12 @@ function ArrowButton({ dir, onClick }: { dir: "left" | "right"; onClick: () => v
       type="button"
       aria-label={dir === "left" ? "Previous project" : "Next project"}
       onClick={onClick}
-      className="grid place-items-center rounded-[18px] border border-white/70 bg-white/40 text-black shadow-[0_4px_10px_rgba(0,0,0,0.22)] backdrop-blur-md transition-transform hover:-translate-y-0.5 active:translate-y-0"
-      style={{ width: px(114), height: px(114) }}
+      className="glass-control grid size-11 shrink-0 place-items-center rounded-control text-black transition-transform hover:-translate-y-0.5 active:translate-y-0 md:size-[var(--arrow)]"
     >
       <svg
         viewBox="0 0 24 24"
         fill="currentColor"
-        style={{ width: px(56), height: px(56) }}
-        className={dir === "right" ? "-scale-x-100" : ""}
+        className={`size-6 md:size-[var(--arrow-icon)] ${dir === "right" ? "-scale-x-100" : ""}`}
       >
         <path d="M10 3.5 1.5 12 10 20.5V14.2H21v-4.4H10z" />
       </svg>

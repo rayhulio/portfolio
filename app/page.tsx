@@ -1,10 +1,9 @@
 import Background from "@/components/Background";
-import GlassFilters from "@/components/GlassFilters";
 import Nav from "@/components/Nav";
-import Hero from "@/components/Hero";
+import Hero, { HeroMobile, Tagline } from "@/components/Hero";
 import { type Project } from "@/components/ProjectCard";
 import WorkCarousel from "@/components/WorkCarousel";
-import { px, FRAME_W, FRAME_H } from "@/app/design";
+import { px, FRAME_W, FRAME_H, CAROUSEL_VARS } from "@/app/design";
 
 const PROJECTS: (Project & { href: string })[] = [
   {
@@ -54,35 +53,31 @@ const PROJECTS: (Project & { href: string })[] = [
     thumbnailType: "blur",
     href: "/self-driving",
   },
-  {
-    number: "07",
-    title: "ILLUSTRATIONS",
-    year: "[2026]",
-    client: "Personal",
-    thumbnail: "/images/illustrations/fka-twigs.webp",
-    thumbnailType: "sharp",
-    href: "/illustrations",
-  },
 ];
 
 export default function Home() {
-  // Left inset so the carousel's first card aligns with the centered frame,
-  // while the row itself spans the full viewport and bleeds off the right edge.
-  const carouselPadLeft = `max(${px(34)}, calc((100vw - ${px(FRAME_W)}) / 2 + ${px(34)}))`;
-
   return (
-    <div id="top" className="relative overflow-x-clip" style={{ minHeight: px(FRAME_H) }}>
-      <GlassFilters />
+    <div
+      id="top"
+      className="home-scale relative overflow-x-clip md:min-h-[var(--frame-h)]"
+      style={{ ...CAROUSEL_VARS, ["--frame-h" as string]: px(FRAME_H) }}
+    >
       <Background />
       <Nav />
 
-      {/* Centered composition frame — hero positioned at exact Figma px */}
-      <div className="relative mx-auto" style={{ width: px(FRAME_W), height: px(FRAME_H) }}>
+      {/* ≥ md: centered composition frame — hero positioned at exact Figma px */}
+      <div className="relative mx-auto hidden md:block" style={{ width: px(FRAME_W), height: px(FRAME_H) }}>
         <Hero />
       </div>
 
-      {/* Work carousel + fixed frosted progress control */}
-      <WorkCarousel projects={PROJECTS} padLeft={carouselPadLeft} />
+      {/* < md: stacked hero, then the floral band with tagline + carousel.
+          On ≥ md the wrapper is display:contents so the carousel positions
+          itself inside the composition above. */}
+      <HeroMobile />
+      <div className="relative bg-cream bg-[url('/images/background-art.png')] bg-[length:100%_auto] bg-top bg-no-repeat pb-12 pt-[28vw] md:contents">
+        <Tagline className="mx-auto mb-10 max-w-[22rem] px-4 text-[clamp(1.75rem,8.5vw,2.5rem)] md:hidden" />
+        <WorkCarousel projects={PROJECTS} />
+      </div>
     </div>
   );
 }

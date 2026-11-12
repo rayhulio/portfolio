@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { px } from "@/app/design";
+import { floralCopyStyle } from "@/app/design";
 
 // Same copy positions as the floral field in Background.
 const COPIES = [0, 1, 2, 3];
@@ -73,18 +73,14 @@ export default function DitherReveal() {
       style={{ clipPath: "path('M-1 -1Z')" }}
     >
       {COPIES.map((i) => (
-        <div
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
           key={i}
-          className="absolute left-1/2 w-screen -translate-x-1/2"
-          style={{ top: px(60 + i * 1200), height: px(2284) }}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/images/background-art-dither.png"
-            alt=""
-            className="h-full w-full object-cover object-top [image-rendering:pixelated]"
-          />
-        </div>
+          src="/images/background-art-dither.png"
+          alt=""
+          className="absolute h-auto [image-rendering:pixelated]"
+          style={floralCopyStyle(i)}
+        />
       ))}
     </div>
   );

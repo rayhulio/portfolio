@@ -36,7 +36,7 @@ export default function CdDisc({
         rotate: `${turns * 360}deg`,
         scale: hover ? "1.08" : "1",
         transition:
-          "rotate 1.1s cubic-bezier(0.45, 0, 0.25, 1), scale 0.3s ease-out",
+          "rotate var(--duration-spin) var(--ease-spin), scale var(--duration-base) ease-out",
       }}
     />
   );

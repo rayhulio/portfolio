@@ -1,6 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { ppNeueBit, satoshi } from "./fonts";
+import SmoothScroll from "@/components/SmoothScroll";
+import GlassFilters from "@/components/GlassFilters";
 import "./globals.css";
+
+export const viewport: Viewport = { width: "device-width", initialScale: 1 };
 
 export const metadata: Metadata = {
   title: "Rahul — Portfolio",
@@ -17,7 +21,11 @@ export default function RootLayout({
       lang="en"
       className={`${ppNeueBit.variable} ${satoshi.variable} h-full antialiased`}
     >
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full">
+        <SmoothScroll />
+        <GlassFilters />
+        {children}
+      </body>
     </html>
   );
 }

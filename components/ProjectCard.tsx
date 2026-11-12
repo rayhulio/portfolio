@@ -21,17 +21,17 @@ export default function ProjectCard({ project }: { project: Project }) {
   return (
     // Transparent card so the thumbnail window can reveal (and frost) the real
     // floral behind the card. The cream "mat" is drawn as strips around it.
-    <article className="relative h-full w-full overflow-hidden rounded-[10px] shadow-[0_4px_4px_rgba(0,0,0,0.25)] [container-type:inline-size]">
+    <article className="relative h-full w-full overflow-hidden rounded-card shadow-ui [container-type:inline-size]">
       {/* Cream mat frame with a window cut out for the thumbnail */}
-      <div className="absolute inset-x-0 top-0 bg-[#f6e9cf]" style={{ height: T.top }} />
-      <div className="absolute inset-x-0 bottom-0 bg-[#f6e9cf]" style={{ top: `calc(100% - ${T.bottom})` }} />
-      <div className="absolute bg-[#f6e9cf]" style={{ left: 0, width: T.left, top: T.top, bottom: T.bottom }} />
-      <div className="absolute bg-[#f6e9cf]" style={{ right: 0, width: T.right, top: T.top, bottom: T.bottom }} />
+      <div className="absolute inset-x-0 top-0 bg-mat" style={{ height: T.top }} />
+      <div className="absolute inset-x-0 bottom-0 bg-mat" style={{ top: `calc(100% - ${T.bottom})` }} />
+      <div className="absolute bg-mat" style={{ left: 0, width: T.left, top: T.top, bottom: T.bottom }} />
+      <div className="absolute bg-mat" style={{ right: 0, width: T.right, top: T.top, bottom: T.bottom }} />
 
       {/* Taupe accent blocks (Figma #b2a08a) */}
-      <span className="absolute left-0 top-[12.4%] h-[7.5%] w-[1.8%] bg-taupe shadow-[0_4px_4px_rgba(0,0,0,0.25)]" />
-      <span className="absolute left-0 top-[22%] h-[7.5%] w-[1.8%] bg-taupe shadow-[0_4px_4px_rgba(0,0,0,0.25)]" />
-      <span className="absolute right-0 top-[14.5%] h-[12%] w-[3.1%] bg-taupe shadow-[0_4px_4px_rgba(0,0,0,0.25)]" />
+      <span className="absolute left-0 top-[12.4%] h-[7.5%] w-[1.8%] bg-taupe shadow-ui" />
+      <span className="absolute left-0 top-[22%] h-[7.5%] w-[1.8%] bg-taupe shadow-ui" />
+      <span className="absolute right-0 top-[14.5%] h-[12%] w-[3.1%] bg-taupe shadow-ui" />
       <span className="absolute right-[3.2%] top-[52.4%] h-[26.7%] w-[9.7%] bg-taupe" />
 
       {/* Red stripes on the left (Figma #ff021b) */}

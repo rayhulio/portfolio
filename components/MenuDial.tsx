@@ -9,7 +9,7 @@ export default function MenuDial() {
     <div className="fixed bottom-6 left-6 z-40 md:bottom-10 md:left-10">
       <div className="relative grid h-[180px] w-[180px] place-items-center rounded-full bg-[radial-gradient(circle_at_50%_38%,rgba(70,26,26,0.9),rgba(18,7,7,0.78))] shadow-[0_14px_50px_rgba(0,0,0,0.55)] backdrop-blur-sm md:h-[240px] md:w-[240px]">
         {/* MENU label with the offset double-vision echo */}
-        <span className="absolute top-6 font-display text-4xl leading-none tracking-widest text-white [text-shadow:0_4px_4px_rgba(0,0,0,0.25)] md:top-9 md:text-6xl">
+        <span className="absolute top-6 font-display text-4xl leading-none tracking-widest text-white [text-shadow:var(--shadow-text)] md:top-9 md:text-6xl">
           <span className="relative z-10">MENU</span>
           <span
             aria-hidden

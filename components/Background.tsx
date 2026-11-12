@@ -1,4 +1,4 @@
-import { px, FRAME_W, FRAME_H } from "@/app/design";
+import { px, px0, FRAME_W, FRAME_H, floralCopyStyle } from "@/app/design";
 import DitherReveal from "@/components/DitherReveal";
 
 /**
@@ -13,24 +13,20 @@ export default function Background() {
   return (
     <div
       aria-hidden
-      className="absolute inset-0 -z-10 overflow-hidden bg-cream"
+      className="absolute inset-0 -z-10 hidden overflow-hidden bg-cream md:block"
       style={{ height: px(FRAME_H) }}
     >
       {/* Floral field — full viewport width, layered copies for length.
           Each copy's transparent top overlaps the previous copy's flowers. */}
       {[0, 1, 2].map((i) => (
-        <div
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
           key={i}
-          className="absolute left-1/2 w-screen -translate-x-1/2"
-          style={{ top: px(60 + i * 1200), height: px(2284) }}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/images/background-art.png"
-            alt=""
-            className="h-full w-full object-cover object-top"
-          />
-        </div>
+          src="/images/background-art.png"
+          alt=""
+          className="absolute h-auto"
+          style={floralCopyStyle(i)}
+        />
       ))}
 
       {/* Interactive dither reveal (follows the cursor) */}
@@ -47,48 +43,34 @@ export default function Background() {
         <Ring src="/images/figma/union2.svg" cx={1492.3} cy={222.9} w={356} h={356} />
 
         {/* Guide lines */}
-        {/* dashed horizontal (line 12) */}
-        <div
-          className="absolute"
-          style={{
-            left: 0,
-            top: px(782),
-            width: px(2220),
-            borderTop: "2px dashed #FF1755",
-          }}
-        />
         {/* dashed verticals (line 11 x2) */}
         {[425, 1168].map((x) => (
           <div
             key={x}
             className="absolute"
-            style={{ left: px(x), top: 0, height: px(1204), borderLeft: "2px dashed #FF1755" }}
+            style={{ left: px(x), top: 0, height: px(1204), borderLeft: "2px dashed var(--color-guide)" }}
           />
         ))}
       </div>
 
+      {/* Dashed horizontal guide (line 12) — full viewport width */}
+      <div
+        className="absolute inset-x-0"
+        style={{ top: px(782), borderTop: "2px dashed var(--color-guide)" }}
+      />
+
       {/* Solid horizontal guide (line 7) — spans the full viewport width */}
       <div
         className="absolute inset-x-0"
-        style={{ top: px(431), height: "1px", background: "#FF467B" }}
+        style={{ top: px(431), height: "1px", background: "var(--color-guide-soft)" }}
       />
     </div>
   );
 }
 
-function Ring({
-  src,
-  cx,
-  cy,
-  w,
-  h,
-}: {
-  src: string;
-  cx: number;
-  cy: number;
-  w: number;
-  h: number;
-}) {
+/** Ring art keeps its ORIGINAL size (fixed 0.62 scale) so it stays cropped by
+ *  the viewport; only its center follows the fluid composition. */
+function Ring({ src, cx, cy, w, h }: { src: string; cx: number; cy: number; w: number; h: number }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
@@ -96,10 +78,10 @@ function Ring({
       alt=""
       className="absolute origin-center"
       style={{
-        left: px(cx - w / 2),
-        top: px(cy - h / 2),
-        width: px(w),
-        height: px(h),
+        left: `calc(${cx} * var(--u) - ${px0(w / 2)})`,
+        top: `calc(${cy} * var(--u) - ${px0(h / 2)})`,
+        width: px0(w),
+        height: px0(h),
         transform: "rotate(-148.56deg)",
       }}
     />
