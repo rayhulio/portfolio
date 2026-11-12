@@ -72,7 +72,12 @@ export default function ProjectCard({ project }: { project: Project }) {
         className="absolute grid place-items-center overflow-hidden bg-[rgba(14,14,14,0.85)]"
         style={{ left: T.left, right: T.right, top: "77.36%", bottom: "10.23%" }}
       >
-        <h3 className="relative font-display text-[10.6cqw] leading-none text-white [text-shadow:0_3.3px_3.3px_rgba(0,0,0,0.25)]">
+        {/* 10.6cqw is calibrated for ~15 characters; longer labels step down so
+            they never wrap or clip inside the bar. */}
+        <h3
+          className="relative whitespace-nowrap font-display leading-none text-white [text-shadow:0_3.3px_3.3px_rgba(0,0,0,0.25)]"
+          style={{ fontSize: `min(10.6cqw, ${(160 / `${number} ${title}`.length).toFixed(2)}cqw)` }}
+        >
           <span className="relative z-10">
             {number} {title}
           </span>

@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
 import Link from "next/link";
 import ProjectCard, { type Project } from "@/components/ProjectCard";
 import { px, S } from "@/app/design";
 
 const GAP = 85; // Figma px between cards
 const CARD_W = 914.892;
+const CARD_H = 870;
+const CAROUSEL_TOP = 1371;
 
 type P = Project & { href: string };
 
@@ -20,9 +21,6 @@ export default function WorkCarousel({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     const el = ref.current;
@@ -51,43 +49,39 @@ export default function WorkCarousel({
         ref={ref}
         id="work"
         className="no-scrollbar absolute left-0 flex w-screen snap-x snap-mandatory overflow-x-auto scroll-smooth"
-        style={{ top: px(1371), gap: px(GAP), paddingLeft: padLeft, paddingRight: px(120) }}
+        style={{ top: px(CAROUSEL_TOP), gap: px(GAP), paddingLeft: padLeft, paddingRight: px(120) }}
       >
         {projects.map((p) => (
           <Link
             key={p.number}
             href={p.href}
             className="flex-none snap-start transition-transform hover:-translate-y-1"
-            style={{ width: px(CARD_W), height: px(870) }}
+            style={{ width: px(CARD_W), height: px(CARD_H) }}
           >
             <ProjectCard project={p} />
           </Link>
         ))}
       </div>
 
-      {/* Fixed frosted-glass progress control — portaled to <body> so it stays
-          pinned to the viewport regardless of ancestor overflow/stacking. */}
-      {mounted &&
-        createPortal(
+      {/* Frosted-glass progress control — sits in the composition just below the
+          card row rather than pinned to the viewport. */}
+      <div
+        className="absolute left-1/2 z-30 flex -translate-x-1/2 items-center"
+        style={{ top: px(CAROUSEL_TOP + CARD_H + 90), gap: px(70) }}
+      >
+        <ArrowButton dir="left" onClick={() => nudge(-1)} />
+        {/* Progress track + fill (frosted white; picks up the floral behind) */}
+        <div
+          className="overflow-hidden rounded-full border border-white/70 bg-white/35 shadow-[0_4px_12px_rgba(0,0,0,0.15)] backdrop-blur-md"
+          style={{ width: px(1220), height: px(100) }}
+        >
           <div
-            className="fixed left-1/2 z-50 flex -translate-x-1/2 items-center"
-            style={{ bottom: px(70), gap: px(70) }}
-          >
-            <ArrowButton dir="left" onClick={() => nudge(-1)} />
-            {/* Progress track + fill (frosted white; picks up the floral behind) */}
-            <div
-              className="overflow-hidden rounded-full border border-white/70 bg-white/35 shadow-[0_4px_12px_rgba(0,0,0,0.15)] backdrop-blur-md"
-              style={{ width: px(1220), height: px(100) }}
-            >
-              <div
-                className="h-full rounded-full bg-white/50 transition-[width] duration-150 ease-out"
-                style={{ width: `${Math.max(progress * 100, 8)}%` }}
-              />
-            </div>
-            <ArrowButton dir="right" onClick={() => nudge(1)} />
-          </div>,
-          document.body,
-        )}
+            className="h-full rounded-full bg-white/50 transition-[width] duration-150 ease-out"
+            style={{ width: `${Math.max(progress * 100, 8)}%` }}
+          />
+        </div>
+        <ArrowButton dir="right" onClick={() => nudge(1)} />
+      </div>
     </>
   );
 }

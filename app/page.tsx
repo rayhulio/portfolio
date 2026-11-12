@@ -54,6 +54,15 @@ const PROJECTS: (Project & { href: string })[] = [
     thumbnailType: "blur",
     href: "/self-driving",
   },
+  {
+    number: "07",
+    title: "ILLUSTRATIONS",
+    year: "[2026]",
+    client: "Personal",
+    thumbnail: "/images/illustrations/fka-twigs.webp",
+    thumbnailType: "sharp",
+    href: "/illustrations",
+  },
 ];
 
 export default function Home() {
