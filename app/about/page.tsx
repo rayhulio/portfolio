@@ -110,18 +110,17 @@ export default function About() {
         <div className="flex flex-col items-start" style={{ gap: "var(--cs-gap-tight)" }}>
           <Title align="left">Hey, I&rsquo;m Rahul.</Title>
           <Body>
-            I&rsquo;m a designer, researcher, and artist at UC Berkeley who likes making things people
-            actually want to use (and sometimes things that are just nice to look at). One day I&rsquo;m
-            deep in user interviews, the next I&rsquo;m obsessing over a single pixel.
+            I&rsquo;m a developer, designer, and artist at UC Berkeley who loves to make things for
+            people. What started off as making over-edited iMovies and art for my friends and family
+            as a kid turned into creating experiences that invoke emotions. That&rsquo;s always what
+            I&rsquo;ve been chasing, making people feel through my work.
           </Body>
           <Body>
-            Lately I&rsquo;ve been building where design meets AI, chasing products that feel human
-            instead of just clever. I want to make things that make people feel something, ideally
-            while having a great time doing it.
+            Recently, I&rsquo;ve been looking at the intersection between design, the development of
+            AI, and people; on how this emerging area can still be used to develop experiences that
+            are deeply human.
           </Body>
-          <Body>
-            Off the clock: film camera in hand, chasing golden hour, with an album on repeat.
-          </Body>
+          <Body>Outside of work, I love to paint, play basketball, and make music :)</Body>
         </div>
       </section>
 
